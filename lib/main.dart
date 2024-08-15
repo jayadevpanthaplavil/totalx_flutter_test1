@@ -5,22 +5,24 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:statusbarz/statusbarz.dart';
 import 'package:totalx_flutter_test1/providers/provider_setup.dart';
-import 'package:totalx_flutter_test1/theme/app_theme.dart';
-import 'package:totalx_flutter_test1/tools/screen_size.dart';
-import 'package:totalx_flutter_test1/tools/smart_dialog_config.dart';
-import 'package:totalx_flutter_test1/utils/routes/route_names.dart';
-import 'package:totalx_flutter_test1/utils/routes/routes.dart';
-import 'package:totalx_flutter_test1/utils/utils.dart';
+import 'package:totalx_flutter_test1/core/theme/app_theme.dart';
+import 'package:totalx_flutter_test1/core/tools/screen_size.dart';
+import 'package:totalx_flutter_test1/core/tools/smart_dialog_config.dart';
+import 'package:totalx_flutter_test1/core/utils/routes/route_names.dart';
+import 'package:totalx_flutter_test1/core/utils/routes/routes.dart';
+import 'package:totalx_flutter_test1/core/utils/utils.dart';
+import 'package:totalx_flutter_test1/ui/screens/login_and_verify_otp/login_and_verify_otp_view.dart';
 
-import 'constants/app_colors.dart';
-import 'constants/app_strings.dart';
-import 'constants/fonts.gen.dart';
+import 'core/constants/app_colors.dart';
+import 'core/constants/app_strings.dart';
+import 'core/constants/fonts.gen.dart';
 
 void main() {
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]);
 
   runApp(const MyApp());
 }
@@ -84,7 +86,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return  MultiProvider(
@@ -129,7 +130,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 toastBuilder: toastBuilder,
                 loadingBuilder: loadingBuilder,
               ),
-              initialRoute: RouteNames.splashScreen,
+              initialRoute: RouteNames.login,
               onGenerateRoute: Routes.generateRoutes,
               navigatorObservers: [
                 Statusbarz.instance.observer,

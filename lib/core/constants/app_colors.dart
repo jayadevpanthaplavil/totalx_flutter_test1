@@ -5,9 +5,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 abstract class Palette {
-  static const Color primary = Color(0xFF3A4599);
-  static const Color primaryLight = Color(0xFFF1F2FF);
+  static const Color blackTextColor = Color(0xFF333333);
+  static const Color primary = Color(0xFF000000);
   static const Color scaffoldBackgroundColor = Color(0xFFFFFFFF);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color blue = Color(0xFF2873F0);
+  static  Color grey = Colors.black.withOpacity(0.4000000059604645);
 
 }
 

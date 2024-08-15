@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 // Project imports:
-import '../../../constants/app_colors.dart';
+import '../../../core/constants/app_colors.dart';
 import 'blur_background.dart';
 
 Widget loadingBuilder(String message) {

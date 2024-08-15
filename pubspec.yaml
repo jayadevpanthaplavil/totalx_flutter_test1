@@ -13,7 +13,7 @@ dependencies:
 
   # basic
   statusbarz: ^1.0.14
-  flutter_screenutil: ^5.9.1
+  flutter_screenutil: ^5.9.3
   flutter_smart_dialog: ^4.9.2
 
   # storage
@@ -28,6 +28,9 @@ dependencies:
   intl: ^0.19.0
   pin_input_text_field: ^4.5.1
 
+  # image
+  flutter_svg: ^2.0.10+1
+
 
   cupertino_icons: ^1.0.6
 
@@ -39,7 +42,7 @@ dev_dependencies:
   flutter_lints: ^3.0.0
 
 flutter_gen:
-  output: lib/constants/
+  output: lib/core/constants/
 
 flutter:
   uses-material-design: true
