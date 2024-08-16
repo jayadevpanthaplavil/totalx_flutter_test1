@@ -129,7 +129,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 toastBuilder: toastBuilder,
                 loadingBuilder: loadingBuilder,
               ),
-              initialRoute: RouteNames.home,
+              initialRoute: RouteNames.login,
               onGenerateRoute: Routes.generateRoutes,
               navigatorObservers: [
                 Statusbarz.instance.observer,

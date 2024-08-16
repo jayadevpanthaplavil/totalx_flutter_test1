@@ -107,13 +107,11 @@ class LoginAndVerifyOtpViewModel extends ChangeNotifier {
   /// call api verify otp
   Future<void> verifyOtpApi(context) async {
     Navigator.pushNamed(context, RouteNames.home).then((value) {
-      if (value != null) {
         otpController.clear();
         enableResend = false;
         showResendOtp = false;
         isLoginScreen = true;
         notifyListeners();
-      }
     });
   }
 
