@@ -26,7 +26,7 @@ class PrimaryButton extends StatelessWidget {
     this.iconColor,
     this.loadingColor,
     this.borderSide,
-    this.suffixIcon,
+    this.suffixIcon, this.decoration,
   });
   final String? label;
   final VoidCallback onTap;
@@ -44,13 +44,14 @@ class PrimaryButton extends StatelessWidget {
   final bool hapticFeedback;
   final bool loading;
   final Widget? child;
+  final Decoration? decoration;
   @override
   Widget build(BuildContext context) {
     return Container(
       height: height,
       width: width,
       clipBehavior: Clip.antiAlias,
-      decoration: ShapeDecoration(
+      decoration:decoration ?? ShapeDecoration(
         color: color ?? Palette.primary,
         shape:  RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(60.r),

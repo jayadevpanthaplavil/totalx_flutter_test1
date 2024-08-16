@@ -11,18 +11,17 @@ import 'package:totalx_flutter_test1/core/tools/smart_dialog_config.dart';
 import 'package:totalx_flutter_test1/core/utils/routes/route_names.dart';
 import 'package:totalx_flutter_test1/core/utils/routes/routes.dart';
 import 'package:totalx_flutter_test1/core/utils/utils.dart';
-import 'package:totalx_flutter_test1/ui/screens/login_and_verify_otp/login_and_verify_otp_view.dart';
 
 import 'core/constants/app_colors.dart';
 import 'core/constants/app_strings.dart';
 import 'core/constants/fonts.gen.dart';
 
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // SystemChrome.setPreferredOrientations([
-  //   DeviceOrientation.portraitUp,
-  //   DeviceOrientation.portraitDown,
-  // ]);
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   runApp(const MyApp());
 }
@@ -130,7 +129,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 toastBuilder: toastBuilder,
                 loadingBuilder: loadingBuilder,
               ),
-              initialRoute: RouteNames.login,
+              initialRoute: RouteNames.home,
               onGenerateRoute: Routes.generateRoutes,
               navigatorObservers: [
                 Statusbarz.instance.observer,

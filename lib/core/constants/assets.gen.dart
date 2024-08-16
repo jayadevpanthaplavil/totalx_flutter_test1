@@ -15,12 +15,43 @@ class $AssetsImagesGen {
   /// File path: assets/images/login.png
   AssetGenImage get login => const AssetGenImage('assets/images/login.png');
 
+  /// File path: assets/images/profile_edit.png
+  AssetGenImage get profileEdit =>
+      const AssetGenImage('assets/images/profile_edit.png');
+
+  /// File path: assets/images/profile_placeholder.png
+  AssetGenImage get profilePlaceholder =>
+      const AssetGenImage('assets/images/profile_placeholder.png');
+
+  /// File path: assets/images/search.png
+  AssetGenImage get search => const AssetGenImage('assets/images/search.png');
+
+  /// Directory path: assets/images/svg
+  $AssetsImagesSvgGen get svg => const $AssetsImagesSvgGen();
+
   /// File path: assets/images/verify_otp.png
   AssetGenImage get verifyOtp =>
       const AssetGenImage('assets/images/verify_otp.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [login, verifyOtp];
+  List<AssetGenImage> get values =>
+      [login, profileEdit, profilePlaceholder, search, verifyOtp];
+}
+
+class $AssetsImagesSvgGen {
+  const $AssetsImagesSvgGen();
+
+  /// File path: assets/images/svg/filter.svg
+  String get filter => 'assets/images/svg/filter.svg';
+
+  /// File path: assets/images/svg/radio_off.svg
+  String get radioOff => 'assets/images/svg/radio_off.svg';
+
+  /// File path: assets/images/svg/radio_on.svg
+  String get radioOn => 'assets/images/svg/radio_on.svg';
+
+  /// List of all assets
+  List<String> get values => [filter, radioOff, radioOn];
 }
 
 class Assets {

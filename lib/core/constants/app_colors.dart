@@ -10,6 +10,7 @@ abstract class Palette {
   static const Color scaffoldBackgroundColor = Color(0xFFFFFFFF);
   static const Color white = Color(0xFFFFFFFF);
   static const Color blue = Color(0xFF2873F0);
+  static const Color red = Color(0xFFFF5454);
   static  Color grey = Colors.black.withOpacity(0.4000000059604645);
 
 }

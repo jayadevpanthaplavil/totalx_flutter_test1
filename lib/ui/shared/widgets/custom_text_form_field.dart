@@ -40,6 +40,8 @@ class CustomTextFormField extends StatelessWidget {
     this.customBorder,
     this.scrollPadding = const EdgeInsets.all(20.0),
     this.labelStyle,
+    this.labelSpacing = 16,
+    this.showLabelAsHint = true,
   });
   final String? hintText;
   final Color textColor;
@@ -71,6 +73,8 @@ class CustomTextFormField extends StatelessWidget {
   final BoxConstraints? suffixIconConstraints;
   final InputBorder? customBorder;
   final EdgeInsets scrollPadding;
+  final double labelSpacing;
+  final bool showLabelAsHint;
 
   ///[FilteringTextInputFormatter]allow only specific characters, numbers, or patterns while disallowing others [clear already entered text]
   ///
@@ -110,7 +114,7 @@ class CustomTextFormField extends StatelessWidget {
                 textColor: textColor,
                 labelIcon: labelIcon)
             : emptyWidget,
-        if (showLabel) verticalSpace(16.h),
+        if (showLabel) verticalSpace(labelSpacing.h),
         TextFormField(
           scrollPadding: scrollPadding,
           decoration: InputDecoration(
@@ -120,18 +124,18 @@ class CustomTextFormField extends StatelessWidget {
               border: customBorder ?? border,
               enabledBorder: customBorder ?? border,
               disabledBorder: customBorder ?? border,
-              focusedBorder: focusedBorder,
-              label: showLabel
+              focusedBorder: customBorder ??focusedBorder,
+              label: (showLabel && showLabelAsHint)
                   ? LabelWidget(
                       mandatory: true,
                       label: label,
                       labelStyle: TextStyle(
                           fontSize: 12.sp, fontWeight: FontWeight.w400),
                       textColor: Palette.grey)
-                  : emptyWidget,
+                  : null,
               hintText: hintText,
               hintStyle: TextStyle(
-                fontSize: hintFontSize ?? 12.sp,
+                fontSize: hintFontSize ?? 14.sp,
                 fontWeight: FontWeight.w400,
                 color: hintTextColor ?? Palette.grey,
               ),
@@ -172,8 +176,7 @@ class LabelWidget extends StatelessWidget {
       this.labelLeftPadding,
       this.label,
       this.labelStyle,
-      this.textColor,
-      required this.mandatory});
+      this.textColor, this.mandatory = false});
   final Widget? labelIcon;
   final double? labelLeftPadding;
   final String? label;

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:developer' as dev;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 String getDeviceType() {
@@ -29,4 +30,26 @@ void printLog(value, {mode = kDebugMode, name = ''}) {
     default:
       dev.log('PrintLog: no mode selected');
   }
+}
+
+/// common setAutoValidateMode
+void setAutoValidateMode(dynamic viewModel) {
+  viewModel.autoValidateMode = AutovalidateMode.always;
+  viewModel.notifyListeners();
+}
+
+String maskMobileNumber(String mobileNumber) {
+  if (mobileNumber.length < 2) {
+    return mobileNumber; // Return as is if the number is too short to mask
+  }
+
+  // Replace all but the last 2 digits with 'X'
+  return mobileNumber.replaceRange(0, mobileNumber.length - 2, 'X' * (mobileNumber.length - 2));
+}
+
+/// Format seconds to SS - used for timer in login screen
+String formatSecondsToMMSS(int seconds) {
+  int minutes = seconds ~/ 60;
+  int remainingSeconds = seconds % 60;
+  return '${remainingSeconds.toString().padLeft(2, '0')} Sec';
 }

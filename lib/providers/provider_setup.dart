@@ -5,6 +5,6 @@ import '../ui/screens/home/home_viewmodel.dart';
 
 
 List<SingleChildWidget> providers = [
-  ChangeNotifierProvider(create: (_) => LoginAndVerifyOtpViewmodel()),
+  ChangeNotifierProvider(create: (_) => LoginAndVerifyOtpViewModel()),
   ChangeNotifierProvider(create: (_) => HomeViewModel()),
 ];

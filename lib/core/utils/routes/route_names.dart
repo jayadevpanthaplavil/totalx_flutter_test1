@@ -1,4 +1,4 @@
 class RouteNames {
-  static const login = '/login-and-verify-otp-view';
+  static const login = '/';
   static const home = "/home-view";
 }
