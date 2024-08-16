@@ -9,10 +9,25 @@ import 'package:totalx_flutter_test1/ui/shared/widgets/custom_text_form_field.da
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/assets.gen.dart';
+import '../../../core/tools/debounce.dart';
+import '../../../core/utils/utils.dart';
 import 'home_viewmodel.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  HomeViewModel homeViewModel = HomeViewModel();
+
+  @override
+  void initState() {
+    homeViewModel.init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +76,15 @@ class HomeView extends StatelessWidget {
                       ),
                       borderRadius: BorderRadius.circular(36.r),
                     ),
+                    onChanged: (value) {
+                      Debounce(milliseconds: 800).run(() async {
+                        printLog(
+                          'Search key: $value',
+                          name: 'CustomSearchBar',
+                        );
+                        viewModel.search(value.trim());
+                      });
+                    },
                   ),
                 ),
                 width_10,
@@ -84,78 +108,92 @@ class HomeView extends StatelessWidget {
               ),
             ),
             height_5,
-            Expanded(
-              child: ListView.separated(
-                padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 2.w),
-                itemCount: viewModel.users.length ?? 0,
-                separatorBuilder: (context, index) => height_10,
-                itemBuilder: (context, index) {
-                  var user = viewModel.users[index];
-                  return Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                    decoration: ShapeDecoration(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      shadows: [
-                        BoxShadow(
-                          color: const Color(0x3F000000),
-                          blurRadius: 4.r,
-                          offset: const Offset(0, 0),
-                          spreadRadius: 0,
-                        )
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 60.w,
-                          height: 60.h,
-                          decoration: ShapeDecoration(
-                              image: DecorationImage(
-                                image: user.pickedImage != null
-                                    ? FileImage(
-                                        File(user.pickedImage!.path),
-                                      )
-                                    : AssetImage(Assets
-                                        .images
-                                        .profilePlaceholder
-                                        .path) as ImageProvider<Object>,
-                                fit: BoxFit.cover,
-                              ),
-                              shape: const CircleBorder()),
+            (viewModel.tempUsers.isEmpty)
+                ? Expanded(
+                    child: Center(
+                      child: Text(
+                        'No user found, please add new user',
+                        style: TextStyle(
+                          color: Palette.primary.withOpacity(0.70),
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
                         ),
-                        width_10,
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              user.username ?? '',
-                              style: TextStyle(
-                                color: Palette.primary.withOpacity(0.80),
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            height_5,
-                            Text(
-                              'Age: ${user.age ?? ''}',
-                              style: TextStyle(
-                                color: Palette.primary.withOpacity(0.80),
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            )
-                          ],
-                        )
-                      ],
+                      ),
                     ),
-                  );
-                },
-              ),
-            )
+                  )
+                : Expanded(
+                    child: ListView.separated(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10.h, horizontal: 2.w),
+                      itemCount: viewModel.tempUsers.length ?? 0,
+                      separatorBuilder: (context, index) => height_10,
+                      itemBuilder: (context, index) {
+                        var user = viewModel.tempUsers[index];
+                        return Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.w, vertical: 10.h),
+                          decoration: ShapeDecoration(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.r),
+                            ),
+                            shadows: [
+                              BoxShadow(
+                                color: const Color(0x3F000000),
+                                blurRadius: 4.r,
+                                offset: const Offset(0, 0),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 60.w,
+                                height: 60.h,
+                                decoration: ShapeDecoration(
+                                    image: DecorationImage(
+                                      image: user.pickedImage != null
+                                          ? FileImage(
+                                              File(user.pickedImage!.path),
+                                            )
+                                          : AssetImage(Assets
+                                              .images
+                                              .profilePlaceholder
+                                              .path) as ImageProvider<Object>,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    shape: const CircleBorder()),
+                              ),
+                              width_10,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    user.username ?? '',
+                                    style: TextStyle(
+                                      color: Palette.primary.withOpacity(0.80),
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  height_5,
+                                  Text(
+                                    'Age: ${user.age ?? ''}',
+                                    style: TextStyle(
+                                      color: Palette.primary.withOpacity(0.80),
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  )
           ],
         ),
       ),

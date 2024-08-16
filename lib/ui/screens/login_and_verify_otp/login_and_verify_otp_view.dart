@@ -38,6 +38,7 @@ class LoginAndVerifyOtpView extends StatelessWidget {
   }
 }
 
+/// LOGIN VIEW
 Widget loginView(LoginAndVerifyOtpViewModel viewModel, BuildContext context) {
   return Form(
     autovalidateMode: viewModel.autoValidateMode,
@@ -127,6 +128,7 @@ Widget loginView(LoginAndVerifyOtpViewModel viewModel, BuildContext context) {
   );
 }
 
+/// VERIFY OTP VIEW
 Widget verifyOtpView(
     LoginAndVerifyOtpViewModel viewModel, BuildContext context) {
   return Column(

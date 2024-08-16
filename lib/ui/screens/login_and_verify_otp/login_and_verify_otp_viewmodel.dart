@@ -23,16 +23,19 @@ class LoginAndVerifyOtpViewModel extends ChangeNotifier {
   bool get isBusy => _isBusy;
   bool get isResendOtpBusy => _isResendOtpBusy;
 
+  /// set busy status
   void setBusy(bool value) {
     _isBusy = value;
     notifyListeners();
   }
 
+  /// set resend otp busy status
   void setResendOtpBusy(bool value) {
     _isResendOtpBusy = value;
     notifyListeners();
   }
 
+  /// on back press
   void onBackPress(context) {
     if (timer?.isActive == true) {
       timer?.cancel();
@@ -48,12 +51,14 @@ class LoginAndVerifyOtpViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// onChanged - otp field
   void updateOtp(String value) {
     debugPrint('onChanged OTP $value');
     otpString = value;
     notifyListeners(); // Notify listeners of the change
   }
 
+  /// on submit - primary button
   Future<void> onSubmit(
       LoginAndVerifyOtpViewModel viewModel, BuildContext context) async {
     setBusy(true);
@@ -85,6 +90,7 @@ class LoginAndVerifyOtpViewModel extends ChangeNotifier {
     startTimer();
   }
 
+  /// start timer - resend otp
   void startTimer() {
     secondsRemaining = 30;
     timer = Timer.periodic(const Duration(seconds: 1), (_) {

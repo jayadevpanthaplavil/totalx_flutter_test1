@@ -13,6 +13,8 @@ class HomeViewModel extends ChangeNotifier {
   final TextEditingController _nameController = TextEditingController();
 
   List<UserModel> users = [];
+  List<UserModel> tempUsers = [];
+  String searchKey = "";
 
   List<FilterModel> filterList = [
     FilterModel(
@@ -32,6 +34,17 @@ class HomeViewModel extends ChangeNotifier {
     ),
   ];
 
+  void init() {
+    updateList();
+  }
+
+  /// reset the list
+  void updateList() {
+    tempUsers = List.from(users);
+    notifyListeners();
+  }
+
+  /// open filter sheet
   void openFilter(BuildContext context) {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
@@ -43,14 +56,14 @@ class HomeViewModel extends ChangeNotifier {
         context: context,
         builder: (context) => FilterSheet(
               filterList: filterList,
-          onConfirm: (value){
+              onConfirm: (value) {
                 filterList = value;
-                notifyListeners();
-          },
+                applyFilterAndSearch();
+              },
             ));
   }
 
-  // Method to show the custom dialog
+  /// open add new user dialog
   void showCustomDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -73,7 +86,7 @@ class HomeViewModel extends ChangeNotifier {
                   username: _nameController.text,
                   age: int.parse(_ageController.text),
                   pickedImage: image));
-              notifyListeners();
+              updateList();
               return true;
             }
           },
@@ -82,6 +95,47 @@ class HomeViewModel extends ChangeNotifier {
     );
     _nameController.clear();
     _ageController.clear();
+  }
+
+  /// search
+  void search(String value) {
+    searchKey = value;
+    applyFilterAndSearch();
+  }
+
+  /// filter
+  void applyFilterAndSearch() {
+    FilterModel? selectedFilter = filterList.firstWhere(
+        (filter) => filter.isSelected ?? false,
+        orElse: () => FilterModel());
+
+    List<UserModel> filteredUsers = users;
+
+    if (selectedFilter.type != null) {
+      switch (selectedFilter.type) {
+        case FilterType.all:
+          filteredUsers = users;
+          break;
+        case FilterType.elder:
+          filteredUsers = users.where((user) => (user.age ?? 0) >= 60).toList();
+          break;
+        case FilterType.younger:
+          filteredUsers = users.where((user) => (user.age ?? 0) < 60).toList();
+          break;
+      }
+    }
+
+    if (searchKey.isNotEmpty) {
+      tempUsers = filteredUsers
+          .where((user) =>
+              user.username?.toLowerCase().contains(searchKey.toLowerCase()) ??
+              false)
+          .toList();
+    } else {
+      tempUsers = filteredUsers;
+    }
+
+    notifyListeners();
   }
 
   @override

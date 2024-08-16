@@ -8,7 +8,8 @@ import '../../../../core/constants/assets.gen.dart';
 import '../../../../model/filter_model.dart';
 
 class FilterSheet extends StatefulWidget {
-  const FilterSheet({super.key, required this.filterList, required this.onConfirm});
+  const FilterSheet(
+      {super.key, required this.filterList, required this.onConfirm});
   final List<FilterModel> filterList;
   final void Function(List<FilterModel> filterList) onConfirm;
 
@@ -35,7 +36,7 @@ class _FilterSheetState extends State<FilterSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Sort',
+            'Filter by',
             style: TextStyle(
               color: Palette.blackTextColor,
               fontSize: 14.sp,
@@ -50,19 +51,19 @@ class _FilterSheetState extends State<FilterSheet> {
             separatorBuilder: (context, index) => height_20,
             itemBuilder: (context, index) {
               var item = widget.filterList[index];
-              return FilterItem(filter: item,
-              select: () {
-                setState(() {
-                  // Ensure only the selected item is marked as true, others as false
-                  for (var filter in widget.filterList) {
-                    filter.isSelected = false;
-                  }
-                  item.isSelected = true;
-                });
-                widget.onConfirm(widget.filterList);
-                Navigator.pop(context);
-              }
-              );
+              return FilterItem(
+                  filter: item,
+                  select: () {
+                    setState(() {
+                      // Ensure only the selected item is marked as true, others as false
+                      for (var filter in widget.filterList) {
+                        filter.isSelected = false;
+                      }
+                      item.isSelected = true;
+                    });
+                    widget.onConfirm(widget.filterList);
+                    Navigator.pop(context);
+                  });
             },
           )
         ],
@@ -79,7 +80,6 @@ class FilterItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      
       onTap: select,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
